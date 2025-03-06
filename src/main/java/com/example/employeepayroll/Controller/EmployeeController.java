@@ -2,6 +2,7 @@ package com.example.employeepayroll.Controller;
 
 
 import com.example.employeepayroll.Service.EmployeeService;
+import com.example.employeepayroll.dto.EmployeeDto;
 import com.example.employeepayroll.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,13 @@ public class EmployeeController {
         return empservice.getbyId(id);
     }
     @PostMapping
-    public Employee posting(@RequestBody Employee emp)
+    public Employee posting(@RequestBody EmployeeDto emp)
     {
        return empservice.addEmployee(emp);
 
     }
     @PutMapping("/{id}")
-    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+    public Employee updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employee) {
         return empservice.updateEmployee(id, employee);
     }
     @DeleteMapping("/{id}")

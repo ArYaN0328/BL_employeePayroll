@@ -1,6 +1,7 @@
 package com.example.employeepayroll.Service;
 
 
+import com.example.employeepayroll.dto.EmployeeDto;
 import com.example.employeepayroll.model.Employee;
 import com.example.employeepayroll.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,24 @@ public class EmployeeService {
         return repository.findById(id).orElseThrow(()->new RuntimeException("Employee Not found"));
     }
 
-    public Employee addEmployee(Employee employee){
-        return repository.save(employee);
+    public Employee addEmployee(EmployeeDto employee){
+        Employee emp=new Employee();
+        emp.setSalary(employee.getSalary());
+        emp.setDepartment(employee.getDepartment());
+        emp.setName(employee.getName());
+        return repository.save(emp);
     }
 
-    public Employee updateEmployee(Long id,Employee emp)
+    public Employee updateEmployee(Long id,EmployeeDto emp)
     {
         Employee existed=getbyId(id);
-        existed.setName(emp.getName());
-        existed.setDepartment(emp.getDepartment());
-        existed.setSalary(emp.getSalary());
+        Employee emp2=new Employee();
+        emp2.setName(emp.getName());
+        existed.setName(emp2.getName());
+        emp2.setDepartment(emp.getDepartment());
+        existed.setDepartment(emp2.getDepartment());
+        emp2.setSalary(emp.getSalary());
+        existed.setSalary(emp2.getSalary());
         return repository.save(existed);
     }
 
